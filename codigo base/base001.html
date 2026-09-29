@@ -1,0 +1,436 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+
+<head>
+
+    <meta charset="UTF-8">
+
+    <title>Sistema de Pedidos</title>
+    <style>
+       
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    background-color: #eeeeee;
+    color: #222222;
+}
+
+
+/* CABEÇALHO */
+
+.cabecalho {
+    background-color: #222222;
+    color: rgb(241, 241, 245);
+    text-align: center;
+    padding: 25px;
+}
+
+.cabecalho h1 {
+    margin-bottom: 5px;
+}
+
+
+/* ÁREA PRINCIPAL */
+
+.principal {
+    width: 90%;
+    max-width: 1000px;
+    margin: 30px auto;
+
+    display: flex;
+    gap: 30px;
+}
+
+
+/* FORMULÁRIO */
+
+.formulario {
+    background-color: white;
+    padding: 25px;
+    width: 50%;
+    border-radius: 10px;
+}
+
+.formulario h2 {
+    margin-bottom: 20px;
+}
+
+.formulario p {
+    margin-top: 15px;
+    margin-bottom: 5px;
+}
+
+
+/* CAMPOS */
+
+input {
+    width: 100%;
+    padding: 10px;
+
+    border: 1px solid #cccccc;
+    border-radius: 5px;
+}
+
+
+/* TAMANHOS */
+
+.tamanhos {
+    display: flex;
+    gap: 10px;
+}
+
+.tamanhos div {
+    width: 25%;
+}
+
+.tamanhos p {
+    text-align: center;
+}
+
+
+/* BOTÃO */
+
+button {
+    width: 100%;
+
+    margin-top: 20px;
+    padding: 12px;
+
+    background-color: #222222;
+    color: white;
+
+    border: none;
+    border-radius: 5px;
+
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #444444;
+}
+
+
+/* PEDIDO */
+
+.pedido {
+    background-color: rgb(247, 246, 246);
+    padding: 25px;
+    width: 50%;
+    border-radius: 10px;
+}
+
+.pedido h2 {
+    margin-bottom: 20px;
+}
+
+
+/* INFORMAÇÕES DO PEDIDO */
+
+.info {
+    margin-bottom: 15px;
+}
+
+.info strong {
+    display: block;
+    margin-bottom: 5px;
+}
+
+
+/* OBSERVAÇÕES */
+
+.observacao {
+    background-color: #fff3cd;
+    padding: 15px;
+    margin-top: 15px;
+    border-radius: 5px;
+}
+
+
+/* CELULAR */
+
+@media (max-width: 700px) {
+
+    .principal {
+        flex-direction: column;
+    }
+
+    .formulario {
+        width: 100%;
+    }
+
+    .pedido {
+        width: 100%;
+    }
+
+}
+
+    </style>
+
+    <link rel="stylesheet" href="style.css">
+
+</head>
+
+
+<body>
+
+    <div class="cabecalho">
+
+        <h1>Estamparia</h1>
+
+        <p>Sistema de pedidos</p>
+
+    </div>
+
+
+    <div class="principal">
+
+
+        <div class="formulario">
+
+            <h2>Novo Pedido</h2>
+
+
+            <p>Nome do Serviço</p>
+
+            <input
+                type="text"
+                id="nomeServico"
+                placeholder="Ex: Pedido 001"
+            >
+
+
+            <p>Quantidade de Peças</p>
+
+            <input
+                type="number"
+                id="quantidade"
+                placeholder="Ex: 10"
+            >
+
+
+            <p>Tamanhos</p>
+
+            <div class="tamanhos">
+
+                <div>
+
+                    <p>P</p>
+
+                    <input
+                        type="number"
+                        id="tamanhoP"
+                        value="0"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <p>M</p>
+
+                    <input
+                        type="number"
+                        id="tamanhoM"
+                        value="0"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <p>G</p>
+
+                    <input
+                        type="number"
+                        id="tamanhoG"
+                        value="0"
+                    >
+
+                </div>
+
+
+                <div>
+
+                    <p>GG</p>
+
+                    <input
+                        type="number"
+                        id="tamanhoGG"
+                        value="0"
+                    >
+
+                </div>
+
+            </div>
+
+
+            <p>Cor da Malha</p>
+
+            <input
+                type="text"
+                id="corMalha"
+                placeholder="Ex: Azul Turquesa"
+            >
+
+
+            <p>Arte do Serviço</p>
+
+            <input
+                type="file"
+                id="arte"
+            >
+
+
+            <p>Data de Entrega</p>
+
+            <input
+                type="date"
+                id="dataEntrega"
+            >
+
+
+            <p>Observações</p>
+
+            <input
+                type="text"
+                id="observacoes"
+                placeholder="Digite as observações"
+            >
+
+
+            <button onclick="criarPedido()">
+
+                Criar Pedido
+
+            </button>
+
+        </div>
+
+
+
+        <div class="pedido">
+
+            <h2>Especificação do Pedido</h2>
+
+
+            <div id="resultado">
+
+                <p>
+
+                    Preencha os dados para gerar o pedido.
+
+                </p>
+
+            </div>
+
+        </div>
+
+
+    </div>
+
+
+    <script src="script.js"></script>
+
+</body>
+<script>
+    function criarPedido() {
+
+    var nomeServico = document.getElementById("nomeServico").value;
+
+    var quantidade = document.getElementById("quantidade").value;
+
+    var tamanhoP = document.getElementById("tamanhoP").value;
+
+    var tamanhoM = document.getElementById("tamanhoM").value;
+
+    var tamanhoG = document.getElementById("tamanhoG").value;
+
+    var tamanhoGG = document.getElementById("tamanhoGG").value;
+
+    var corMalha = document.getElementById("corMalha").value;
+
+    var dataEntrega = document.getElementById("dataEntrega").value;
+
+    var partesData = dataEntrega.split("-");
+
+    var dataFormatada = partesData[2] + "/" + partesData[1] + "/" + partesData[0]; 
+
+    var observacoes = document.getElementById("observacoes").value;
+
+    var resultado = document.getElementById("resultado");
+
+
+    resultado.innerHTML = `
+
+        <div class="info">
+
+            <strong>Nome do Serviço:</strong>
+
+            ${nomeServico}
+
+        </div>
+
+
+        <div class="info">
+
+            <strong>Quantidade:</strong>
+
+            ${quantidade} peças
+
+        </div>
+
+
+        <div class="info">
+
+            <strong>Tamanhos:</strong>
+
+            <p>P: ${tamanhoP}</p>
+
+            <p>M: ${tamanhoM}</p>
+
+            <p>G: ${tamanhoG}</p>
+
+            <p>GG: ${tamanhoGG}</p>
+
+        </div>
+
+
+        <div class="info">
+
+            <strong>Cor da Malha:</strong>
+
+            ${corMalha}
+
+        </div>
+
+
+        <div class="info">
+
+            <strong>Data de Entrega:</strong>
+
+            ${dataFormatada}
+
+        </div>
+
+
+        <div class="observacao">
+
+            <strong>Observações:</strong>
+
+            <p>${observacoes}</p>
+
+        </div>
+
+    `;
+    }
+</script>
+
+</html>
+```
